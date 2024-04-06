@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block login_title %}
+        {% block regis_title %}
+            {% block home_title %}
+                
+            {% endblock home_title %}
+        {% endblock regis_title %}
+    {% endblock login_title %}
+</head>
+<body>
+    {% block login_body %}
+        {% block regis_body %}
+        {% block home_body %}
+            
+        {% endblock home_body %}
+            
+        {% endblock regis_body %}
+    {% endblock login_body %}
+</body>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</html>

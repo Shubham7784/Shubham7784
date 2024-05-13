@@ -1,6 +1,6 @@
 from flask import Flask,request,render_template,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func ,text
+from sqlalchemy import text
 from datetime import date
 from sqlalchemy.exc import IntegrityError
 app = Flask(__name__,static_url_path='/static')
@@ -8,6 +8,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:shubham01@localhost/librar
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# Defining the Database Model
 class user(db.Model):
     user_id = db.Column(db.String(100),primary_key = True)
     password = db.Column(db.String(20),nullable = False)
@@ -51,6 +52,7 @@ class book_order(db.Model):
     def __repr__(self) -> str:
         return f"{self.book_id}-{self.quantity}"
 
+#HomePage Route
 @app.route('/')
 def main():
     return render_template("login.html")
@@ -70,6 +72,8 @@ def login():
             else:
                 return render_template("login.html",data = "Failed to Login at this moment!! Try after some time")
         
+
+#User's Side Code Snippet 
 @app.route("/home<data>")
 def home(data):
     username = user.query.get({"user_id":data})
@@ -180,6 +184,8 @@ def extend_time(bid,uid):
 
 
 
+
+#Admin's Side Code Snippet
 @app.route("/admin_login")
 def admin_login():
     return render_template("admin_login.html")

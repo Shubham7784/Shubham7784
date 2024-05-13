@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+
+{% block admin_form_title %}
+    <title>Library Management System | Form</title>
+{% endblock admin_form_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/admin_home/{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook_admin/{{uid}}">Books Available</a>
+        <a class="nav-link" href="/show_issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/show_admins/{{uid}}">Admins</a>
+        <a class="nav-link" href="/show_users/{{uid}}">Users</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+
+{% block admin_form_body %}
+    <div class="admin_form">
+        <p>{{message}}</p>
+        {% if message == "Admin Form" %}
+          <form action="/add_admin_confirm/{{uid}}" method="post">
+            <p>Admin Id  <input type="text" name="aid" id="aid" required="True"></p>
+            <p>Admin Name  <input type="text" name="aname" id="aname" required="True"></p>
+            <p>Contact Info  <input type="text" name="contact" id="contact" required="True"></p>
+            <p>Password  <input type="password" name="password" id="password" required="True"></p>
+            <p>Confirm Password  <input type="password" name="con_password" id="con_password" required="True"></p>
+            <button type="submit" style="background-color: lightgreen;">ADD</button>
+          </form>
+          {% else %}
+          <form action="/add_book/{{uid}}" method="post">
+            <p>Book Id  <input type="text" name="bid" id="bid" required="True"></p>
+            <p>Book Name  <input type="text" name="bname" id="bname" required="True"></p>
+            <p>Author  <input type="text" name="author" id="author" required="True"></p>
+            <p>Price  <input type="text" name="price" id="price" required="True"></p>
+            <p>Quantity  <input type="text" name="quantity" id="quantity" required="True"></p>
+            <button type="submit" style="background-color: lightgreen;">ADD</button>
+          </form>
+          
+        {% endif %}
+    </div>
+{% endblock admin_form_body %}

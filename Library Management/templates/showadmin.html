@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% block showadmin_title %}
+    <title>Library Management System | Admins</title>
+{% endblock showadmin_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/admin_home/{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook_admin/{{uid}}">Books Available</a>
+        <a class="nav-link" href="/show_issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/show_admins/{{uid}}">Admins</a>
+        <a class="nav-link" href="/show_users/{{uid}}">Users</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+
+{% block showadmin_body %}
+<div class="tables">
+    <table class="table">
+        <tbody>
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Admin ID</th>
+                    <th scope="col">Admin Name</th>
+                    <th scope="col">Contact Info</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            {% for i in range(admins|length) %}
+            <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>{{admins[i][0]}}</td>
+                <td>{{admins[i][1]}}</td>
+                <td>{{admins[i][2]}}</td>
+                <td>
+                    <div class="issue_button">
+                        <a href="/remove_admin/{{uid}}/{{admins[i][0]}}">Remove Admin</a>
+                    </div>
+                </td>
+            </tr> 
+            {% endfor %}         
+        </tbody>
+    </table>
+    <div class="add_admin_button">
+        <a href="/add/{{uid}}/Admin Form" role="button">Add New Admin</a>
+    </div>
+</div>
+{% endblock showadmin_body %}

@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+
+{% block issued_book_title %}
+    <title>Library Management System | Issued Books</title>
+{% endblock issued_book_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/admin_home/{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook_admin/{{uid}}">Books Available</a>
+        <a class="nav-link" href="/show_issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/show_admins/{{uid}}">Admins</a>
+        <a class="nav-link" href="/show_users/{{uid}}">Users</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+{% block issued_book_body %}
+<div class="tables">
+    {% if issued_books|length == 0 %}
+    <div class="alert_alert-dark" role="alert">
+        <p>No Books Issued !!</p>
+    </div>
+    {% else %}
+    <table class="table">
+        <tbody> 
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Book ID</th>
+                    <th scope="col">Borrowed By</th>
+                    <th scope="col">Duration Month</th>
+                    <th scope="col">Fine Generated</th>
+                    <th scope="col">Date Borrowed</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            {% for i in range(issued_books|length) %}
+            <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>{{issued_books[i][0]}}</td>
+                <td>{{issued_books[i][1]}}</td>
+                <td>{{issued_books[i][2]}}</td>
+                <td>{{issued_books[i][2]}}</td>
+                <td>{{issued_books[i][2]}}</td>
+                <td>{{issued_books[i][2]}}</td>
+            </tr> 
+            {% endfor %}         
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock issued_book_body %}

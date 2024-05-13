@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% block admin_home_title %}
+    <title>Library Management System | Admin Home</title>
+{% endblock admin_home_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/admin_home/{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook_admin/{{uid}}">Books Available</a>
+        <a class="nav-link" href="/show_issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/show_admins/{{uid}}">Admins</a>
+        <a class="nav-link" href="/show_users/{{uid}}">Users</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+
+{% block admin_home_body %}
+    <p style="text-align: center;color: aliceblue;font-size: large;">Welcome to the Admin Page {{data}}</p>
+
+    <div class="avbook" style="width: 18rem;">
+        <div class="avbook-body" style="text-align: center;">
+          <h5 class="card-title" style="text-align: center;">Available Books</h5>
+          <p class="card-text">{{book_count}}</p>
+          <a href="/showbook_admin/{{uid}}" class="card-link">See All</a>
+        </div>
+    </div>
+
+    <div class="admins_count" style="width: 18rem;">
+        <div class="issued-body">
+          <h5 class="card-title">Total Admins</h5>
+          <p class="card-text">{{admin_count}}</p>
+          <a href="/show_admins/{{uid}}" class="card-link">See All</a>
+        </div>
+    </div>
+    <div class="users_count" style="width: 18rem;">
+        <div class="issued-body">
+          <h5 class="card-title">Total Users</h5>
+          <p class="card-text">{{user_count}}</p>
+          <a href="/show_users/{{uid}}" class="card-link">See All</a>
+        </div>
+    </div>
+    <div class="book_issued_count" style="width: 18rem;">
+        <div class="issued-body">
+          <h5 class="card-title">Total Books Issued</h5>
+          <p class="card-text">{{book_issued_count}}</p>
+          <a href="/show_issued_book/{{uid}}" class="card-link">See All</a>
+        </div>
+    </div>
+{% endblock admin_home_body %}

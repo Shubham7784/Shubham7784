@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+{% block issued_book_title %}
+    <title>Library Management System | Books Issued</title>
+{% endblock issued_book_title %}
+{% block home_nav %}
+    
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/home{{uid}}">Home</a>
+                <a class="nav-link" href="/showbook/{{uid}}">Show Books</a>
+                <a class="nav-link" href="/issued_book/{{uid}}">Issued Books</a>
+                <a class="nav-link" href="/">Log Out</a>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock home_nav %}
+{% block issued_book_body %}
+    <div class="issue_table">
+        <table>
+            <tbody>
+                {% if tables|length == 0 %}
+                <div class="alert alert-dark" role="alert">
+                    No Books Found !!
+                </div>
+                {% else %}
+                <div>
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Book ID</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Fine Generated</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                    {% for i in range(count) %}
+                    <tr>
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{tables[i][0]}}</td>
+                        <td>{{tables[i][1]}}</td>
+                        <td>{{tables[i][2]}}</td>
+                        <td>{{tables[i][3]}}</td>
+                        <td>
+                            <div class="issue_button">
+                                <a href="/return/{{tables[i][0]}}/{{uid}}" class="btn btn-primary" role="button" data-bs-toggle="button">Return Book</a> |
+                                <a href="/extend/{{tables[i][0]}}/{{uid}}" class="btn btn-primary" role="button" data-bs-toggle="button">Extend Time</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}          
+                </div>
+                {% endif %}
+            </tbody>
+        </table>
+        {% if tables|length !=0 %}
+        <div class="return_all_button">
+            <a href="/return/all/{{uid}}" role="button">Return All Books</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock issued_book_body %}

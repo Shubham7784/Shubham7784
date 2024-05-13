@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block login_title %}
+        {% block signup_title %}
+            {% block home_title %}
+                {% block admin_login_title %}
+                    {% block admin_home_title %}
+                        {% block showbook_title %}
+                            {% block issued_book_title %}
+                                {% block message_title %}
+                                    {% block showbook_admin_title %}
+                                        {% block showadmin_title %}
+                                            {% block admin_form_title %}
+                                                {% block show_user_title %}
+                                    
+                                                {% endblock show_user_title %}
+                                            {% endblock admin_form_title %}
+                                        {% endblock showadmin_title %}
+                                    {% endblock showbook_admin_title %}
+                                {% endblock message_title %}
+                            {% endblock issued_book_title %}
+                        {% endblock showbook_title %}
+                    {% endblock admin_home_title %}
+                {% endblock admin_login_title  %}
+            {% endblock home_title %}
+        {% endblock signup_title %}
+    {% endblock login_title %}
+</head>
+<nav>
+    {% block home_nav %}
+        
+    {% endblock home_nav %}
+</nav>
+<body>
+    <p class="back" style="font-size:xx-large;color: floralwhite;text-align: center;">Library Management System</p>
+    {% block login_body %}
+        {% block signup_body %}
+            {% block home_body %}
+                {% block admin_login_body %}
+                    {% block admin_home_body %}
+                        {% block showbook_body %}
+                            {% block issued_book_body %}
+                                {% block message_body %}
+                                    {% block showbook_admin_body %}
+                                        {% block showadmin_body %}
+                                            {% block admin_form_body %}
+                                                {% block show_user_body %}
+                                                    
+                                                {% endblock show_user_body %}
+                                            {% endblock admin_form_body %}
+                                        {% endblock showadmin_body %}
+                                    {% endblock showbook_admin_body %}
+                                {% endblock message_body %}
+                            {% endblock issued_book_body %}
+                        {% endblock showbook_body %}
+                    {% endblock admin_home_body %}
+                {% endblock admin_login_body %}
+            {% endblock home_body %}
+        {% endblock signup_body %}
+    {% endblock login_body %}
+    
+</body>
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+<script src="{{url_for('static',filename='js/script.js')}}"></script>
+</html>

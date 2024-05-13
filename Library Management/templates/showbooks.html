@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% block showbook_title %}
+    <title>Library Management System | Book</title>
+{% endblock showbook_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/home{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook/{{uid}}">Show Books</a>
+        <a class="nav-link" href="/issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+{% block showbook_body %}
+<div class="tables">
+    {% if tables|length == 0 %}
+    <div class="alert_alert-dark" role="alert">
+        No Books Found !!
+    </div>
+    {% else %}
+    <table class="table">
+        <tbody>
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            {% for i in range(count) %}
+            <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>{{tables[i][1]}}</td>
+                <td>{{tables[i][2]}}</td>
+                <td>{{tables[i][3]}}</td>
+                <td>
+                    <div class="issue_button">
+                        <a href="/issue/{{tables[i][0]}}/{{uid}}" class="btn btn-primary" role="button" data-bs-toggle="button">Issue Book</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock showbook_body %}

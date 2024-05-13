@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block home_title %}
+    <title>Library Management | Home</title>
+{% endblock home_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/home{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook/{{uid}}">Show Books</a>
+        <a class="nav-link" href="/issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+{% block home_body %}
+    <p style="text-align: center;color: aliceblue;font-size: large;">Welcome {{data}}</p>
+
+    <div class="avbook" style="width: 18rem;">
+        <div class="avbook-body" style="text-align: center;">
+          <h5 class="card-title" style="text-align: center;">Available Books</h5>
+          <p class="card-text">{{book_count}}</p>
+          <a href="/showbook/{{uid}}" class="card-link">See All</a>
+        </div>
+    </div>
+
+    <div class="issuedbook" style="width: 18rem;">
+        <div class="issued-body">
+          <h5 class="card-title">Books Issued</h5>
+          <p class="card-text">{{issue_count}}</p>
+          <a href="/issued_book/{{uid}}" class="card-link">See All</a>
+        </div>
+    </div>
+{% endblock home_body %}

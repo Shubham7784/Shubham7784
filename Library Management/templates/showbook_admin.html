@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block showbook_admin_title %}
+    <title>Library Management System | Books</title>
+{% endblock showbook_admin_title %}
+
+{% block home_nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/admin_home/{{uid}}">Home</a>
+        <a class="nav-link" href="/showbook_admin/{{uid}}">Books Available</a>
+        <a class="nav-link" href="/show_issued_book/{{uid}}">Issued Books</a>
+        <a class="nav-link" href="/show_admins/{{uid}}">Admins</a>
+        <a class="nav-link" href="/show_users/{{uid}}">Users</a>
+        <a class="nav-link" href="/">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+{% endblock home_nav %}
+
+{% block showbook_admin_body %}
+<div class="tables">
+  {% if tables|length == 0 %}
+  <div class="alert_alert-dark" role="alert">
+    <p>No Books Found in the Library !!</p>
+  </div>
+  {% else %}
+  <table class="table">
+      <tbody>
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Book ID</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            {% for i in range(tables|length) %}
+            <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>{{tables[i][0]}}</td>
+                <td>{{tables[i][1]}}</td>
+                <td>{{tables[i][2]}}</td>
+                <td>{{tables[i][3]}}</td>
+                <td>{{tables[i][4]}}</td>
+            
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    <div class="add_book_button">
+      <a href="/add/{{uid}}/Book Form" role="button">Add Books</a>
+  </div>
+</div>
+{% endblock showbook_admin_body %}

@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block login_title %}
+    <title>Library Management System | LogIN</title>
+{% endblock login_title %}
+
+{% block login_body %}  
+    <div class="login">
+        <p style="font-size: large;font-style: oblique;font-family: 'Times New Roman', Times, serif;color: black;">User LogIn</p>
+        <form action="/login" method="post">
+            <p>{{data}}</p>
+            <p>User ID : <input type="text" name="id" id="id"> </p>
+            <p>Password : <input type="password" name="password" id="password"> </p>
+            <p><input type="checkbox" name="Show Password" id="show" onclick="showfunc()">Show Password</p>
+            <button type="submit" style="background-color: lightgreen;" >Login</button>
+            <p>New Member ? <a href="signup">Register</a></p>
+            <p><a href="/admin_login">Admin LOGIN</a></p>
+        </form>
+    </div>
+{% endblock login_body %}

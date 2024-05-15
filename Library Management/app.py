@@ -45,12 +45,7 @@ class book_borrowed(db.Model):
 
     def __repr__(self) -> str:
         return f"{self.book_id}-{self.borrowed_by}-{self.duration_month}-{self.fine_generated}-{self.date_borrowed_on}-{self.quantity}"
-class book_order(db.Model):
-    book_id = db.Column(db.Integer,primary_key = True)
-    quantity = db.Column(db.Integer,nullable = False)
 
-    def __repr__(self) -> str:
-        return f"{self.book_id}-{self.quantity}"
 
 #HomePage Route
 @app.route('/')
@@ -130,6 +125,12 @@ def issue(bid,uid):
         stmt = text(f"update book_borrowed set quantity = {quantity} where book_id = {bid} and borrowed_by = '{uid}';")
         db.session.execute(stmt)
         db.session.commit()
+    stmt = text(f"select quantity from book where book_id = {bid};")
+    quantity = int(db.session.execute(stmt).fetchall()[0][0])
+    quantity -=1
+    stmt = text(f"update book set quantity = {quantity} where book_id = {bid};")
+    db.session.execute(stmt)
+    db.session.commit()
     return render_template("message.html",uid=uid,message = "Book Issued Successfully",fine=0)  
 @app.route("/return/<bid>/<uid>")
 def return_book(bid,uid):
@@ -150,6 +151,12 @@ def return_book(bid,uid):
             stmt = text(f"delete from book_borrowed where book_id = {bid} and borrowed_by = '{uid}';")
             db.session.execute(stmt)
             db.session.commit()
+        stmt = text(f"select quantity from book where book_id = {bid};")
+        quantity = int(db.session.execute(stmt).fetchall()[0][0])
+        quantity+=1
+        stmt = text(f"update book set quantity = {quantity} where book_id = {bid};")
+        db.session.execute(stmt)
+        db.session.commit()
         return render_template("message.html",uid=uid,message="Book Returned Successfully",fine=0)
     else:
         return render_template("message.html",uid=uid,message= f"Due to late submission ! {fine} Rupees Fine has been generated",fine=fine,bid=bid)
@@ -158,9 +165,15 @@ def return_fine(bid,uid):
     stmt = text(f"delete from book_borrowed where book_id = {bid} and borrowed_by = '{uid}';")
     db.session.execute(stmt)
     db.session.commit()
+    stmt = text(f"select quantity from book where book_id = {bid};")
+    quantity = int(db.session.execute(stmt).fetchall()[0][0])
+    quantity+=1
+    stmt = text(f"update book set quantity = {quantity} where book_id = {bid};")
+    db.session.execute(stmt)
+    db.session.commit()
     return render_template("message.html",uid=uid,message="Book Returned Successfully",fine=0)
 
-@app.route("/return_fine_unpaid/<bid>/<uid>")
+@app.route("/return_fine_unpaid/<bid>/<uid>/<fine>")
 def return_withoutfine(bid,uid,fine):
     stmt = text(f"update book_borrowed set fine_generated = {fine} where book_id = {bid} and borrowed_by = '{uid}';")
     db.session.execute(stmt)
@@ -168,6 +181,15 @@ def return_withoutfine(bid,uid,fine):
     return redirect(url_for("show_issued_book",user=uid))  
 @app.route("/return/all/<uid>")
 def return_all(uid):
+    stmt = text(f"select book_id,quantity from book_borrowed where borrowed_by = '{uid}';")
+    query = db.session.execute(stmt).fetchall()
+    for bid,quant in query:
+        stmt = text(f"select quantity from book where book_id = {bid};")
+        quantity = int(db.session.execute(stmt).fetchall()[0][0])
+        quantity+=quant
+        stmt = text(f"update book set quantity = {quantity} where book_id = {bid};")
+        db.session.execute(stmt)
+        db.session.commit() 
     stmt = text(f"delete from book_borrowed where borrowed_by = '{uid}';")
     db.session.execute(stmt)
     db.session.commit()
